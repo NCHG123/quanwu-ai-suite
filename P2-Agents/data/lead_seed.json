@@ -1,0 +1,166 @@
+{
+  "version": "2026-09-05",
+  "note": "精选种子线索。覆盖全屋定制出海主战场（美国/阿联酋/澳大利亚）。任何 Apollo/Hunter API key 配置后，将自动以真爬数据替换此源。",
+  "leads": [
+    {
+      "contact": "Mike Carter (Owner @ Carter Custom Homes TX)",
+      "company": "Carter Custom Homes",
+      "country": "USA",
+      "industry": "custom home builder",
+      "url": "https://example-carter-homes.com",
+      "text": "Building 12 luxury homes in Plano TX, need full-house custom wardrobe packages with CARB P2 compliance. Can you ship DDP Houston? Please quote."
+    },
+    {
+      "contact": "Sarah Liu (Procurement @ BuildCo Toronto)",
+      "company": "BuildCo Toronto",
+      "country": "Canada",
+      "industry": "condo developer",
+      "url": "https://example-buildco.ca",
+      "text": "Renovating 50 condo units downtown. Looking for wardrobes with soft-close hinges, matte finishes, lead time under 60 days. Samples needed."
+    },
+    {
+      "contact": "David Reynolds (GM @ Reynolds Renovations)",
+      "company": "Reynolds Renovations",
+      "country": "USA",
+      "industry": "renovation contractor",
+      "url": "https://example-reynolds.com",
+      "text": "Repeat customer of Asian cabinetry. Considering switching suppliers — what's your MOQ and warranty? Need samples for 3 projects."
+    },
+    {
+      "contact": "Ahmed Al Mansoori (Project Lead @ Emaar-style Developer)",
+      "company": "Gulf Towers Development",
+      "country": "UAE",
+      "industry": "developer",
+      "url": "https://example-gulftowers.ae",
+      "text": "300-unit residential project in Dubai Marina, full-house custom furniture. Need quote with installation support and 2-year warranty."
+    },
+    {
+      "contact": "James Mitchell (Director @ Mitchell Builders AU)",
+      "company": "Mitchell Builders",
+      "country": "Australia",
+      "industry": "custom home builder",
+      "url": "https://example-mitchellbuilders.com.au",
+      "text": "Building 8 townhouses in Sydney. Want European-style wardrobes, oak veneer, soft-close. Please send catalogue + CIF price."
+    },
+    {
+      "contact": "Linda Park (Interior Designer @ Park Studios LA)",
+      "company": "Park Studios",
+      "country": "USA",
+      "industry": "interior designer",
+      "url": "https://example-parkstudios.com",
+      "text": "Specifying wardrobes for high-end residential project in Beverly Hills. Need finish samples (5 colors) and lead time confirmation."
+    },
+    {
+      "contact": "Mohammed Al Hashimi (Procurement @ Dubai Properties Co.)",
+      "company": "Dubai Properties Co.",
+      "country": "UAE",
+      "industry": "developer",
+      "url": "https://example-dubaiproperties.ae",
+      "text": "Bulk inquiry for 150 apartments. Need compliant wardrobes, installation included, project timeline 6 months. RFQ document attached."
+    },
+    {
+      "contact": "Olivia Brown (Project Manager @ Brown Construction)",
+      "company": "Brown Construction Group",
+      "country": "USA",
+      "industry": "general contractor",
+      "url": "https://example-browncg.com",
+      "text": "Multi-family project in Austin TX, 80 units. Need wardrobe + walk-in closet packages. Prefer vendors with NAHB experience."
+    },
+    {
+      "contact": "Robert Chen (Architect @ Chen + Partners Architects)",
+      "company": "Chen + Partners",
+      "country": "USA",
+      "industry": "architect firm",
+      "url": "https://example-chenpartners.com",
+      "text": "Specifying for 6-unit boutique condo in Seattle. Modern minimalist wardrobes with integrated lighting. Sample + quote required."
+    },
+    {
+      "contact": "Fatima Al Zahra (Interior @ ZA Interiors)",
+      "company": "ZA Interiors Dubai",
+      "country": "UAE",
+      "industry": "interior design",
+      "url": "https://example-zainteriors.ae",
+      "text": "Ongoing villa projects in Palm Jumeirah. Need consistent supplier for custom wardrobes, lead times 45-60 days, USD pricing preferred."
+    },
+    {
+      "contact": "Tom Wilson (Builder @ Wilson Homes QLD)",
+      "company": "Wilson Homes",
+      "country": "Australia",
+      "industry": "home builder",
+      "url": "https://example-wilsonhomes.com.au",
+      "text": "Volume builder, 200+ homes/year. Looking for wardrobe supplier with consistent quality and competitive pricing for QLD/NSW markets."
+    },
+    {
+      "contact": "Kevin O'Brien (Renovator @ O'Brien Renovations)",
+      "company": "O'Brien Renovations",
+      "country": "USA",
+      "industry": "renovation contractor",
+      "url": "https://example-obrienrenov.com",
+      "text": "High-end kitchen + wardrobe renovations in Boston suburbs. Need reliable supplier for custom work, lead time 8-10 weeks."
+    },
+    {
+      "contact": "Aisha Rahman (PM @ Rahman Builders Dubai)",
+      "company": "Rahman Builders",
+      "country": "UAE",
+      "industry": "general contractor",
+      "url": "https://example-rahmanbuilders.ae",
+      "text": "Villa development, 25 units in Emirates Hills. Need full-house wardrobes + vanities, including installation. Quote ASAP."
+    },
+    {
+      "contact": "Mark Thompson (Owner @ Thompson Custom Cabinets)",
+      "company": "Thompson Custom Cabinets",
+      "country": "USA",
+      "industry": "cabinet maker",
+      "url": "https://example-thompsoncustom.com",
+      "text": "Looking for white-label wardrobe manufacturer to expand my product line. Need samples, pricing tiers, NDA available."
+    },
+    {
+      "contact": "Sophie Martin (Designer @ Martin Interiors NY)",
+      "company": "Martin Interiors",
+      "country": "USA",
+      "industry": "interior design",
+      "url": "https://example-martininteriors.com",
+      "text": "Specifying custom wardrobes for Manhattan penthouse project. Need high-gloss finishes, integrated LED, premium hardware."
+    },
+    {
+      "contact": "Hassan Ibrahim (Developer @ Nile Coast Development)",
+      "company": "Nile Coast Development",
+      "country": "Egypt",
+      "industry": "developer",
+      "url": "https://example-nilecoast.eg",
+      "text": "Beachfront residential project in North Coast, 400 units. Need European-quality wardrobes at competitive pricing. CIF Alexandria."
+    },
+    {
+      "contact": "Emma Wilson (Project Lead @ Wilson Property Group)",
+      "company": "Wilson Property Group",
+      "country": "Australia",
+      "industry": "property developer",
+      "url": "https://example-wilsonproperty.com.au",
+      "text": "Apartment project in Melbourne, 120 units. Need wardrobes with soft-close, mirror options, lead time 12 weeks. Quote in AUD."
+    },
+    {
+      "contact": "Daniel Garcia (GM @ Garcia Construction FL)",
+      "company": "Garcia Construction",
+      "country": "USA",
+      "industry": "general contractor",
+      "url": "https://example-garciaconstruction.com",
+      "text": "Multi-family condo project in Miami, hurricane-rated wardrobes needed. Florida building code compliance required. Send documentation."
+    },
+    {
+      "contact": "Yuki Tanaka (Buyer @ Tanaka Homes JP)",
+      "company": "Tanaka Homes",
+      "country": "Japan",
+      "industry": "home builder",
+      "url": "https://example-tanakahomes.jp",
+      "text": "Premium residential projects in Tokyo. Need compact, high-quality wardrobes with earthquake-resistant hardware. Quote JPY or USD."
+    },
+    {
+      "contact": "Carlos Rodriguez (Architect @ Rodriguez + Associates)",
+      "company": "Rodriguez + Associates",
+      "country": "Mexico",
+      "industry": "architect firm",
+      "url": "https://example-rodriguezassociates.mx",
+      "text": "Designing 80-unit residential in Mexico City. Need wardrobes with modern finishes, sample delivery, lead time confirmation."
+    }
+  ]
+}
