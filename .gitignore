@@ -1,0 +1,51 @@
+# ===== 敏感信息：绝对不能上传 =====
+.env
+*.env
+.env.*
+!.env.example
+*api_key*
+*API_KEY*
+secret*
+config_local.py
+
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+.venv/
+env/
+ENV/
+build/
+dist/
+*.egg-info/
+
+# ===== 运行产物 / 数据 =====
+*.log
+*.db
+*.sqlite
+*.sqlite3
+leads.json
+crawl_result.json
+acq_web.json
+crawl_web.json
+run2.json
+acquire_result.json
+reports/
+state/*.json
+!state/leads.py
+
+# ===== 编辑器 / 系统 =====
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+
+# ===== 模型缓存（体积巨大） =====
+models/
+*.bin
+*.onnx
+*.pt
