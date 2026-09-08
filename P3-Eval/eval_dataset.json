@@ -1,0 +1,47 @@
+{
+  "retrieval_cases": [
+    {"id":"R1","question":"What is your volume discount ladder?","clearance":"internal",
+     "expect_source_contains":"15-pricing-logic-internal.md","expect_heading":"Volume Discount Ladder",
+     "note":"坑1回归：表格检索（带标题切块修复后必须命中）"},
+    {"id":"R2","question":"我们的成本构成里哪项加价最多？","clearance":"internal",
+     "expect_source_contains":"15-pricing-logic-internal.md","expect_heading":"Cost Drivers",
+     "note":"坑1回归：成本表检索"},
+    {"id":"R3","question":"你们有什么折扣政策？","clearance":"public",
+     "expect_source_NOT_contains":"15-pricing-logic-internal.md",
+     "note":"坑2回归：对外权限过滤（不得漏内部底价）"},
+    {"id":"R4","question":"我们的起订量是多少？","clearance":"public",
+     "expect_source_contains":["09-commercial-terms.md","11-faq-overseas-cooperation.md","16-sales-playbook.md"],
+     "note":"坑3跨语言：中文问命中英文MOQ段落（弱项，测命中率）"},
+    {"id":"R5","question":"美国市场需要什么认证？","clearance":"public",
+     "expect_source_contains":"07-certifications-compliance.md",
+     "note":"高质量检索基准（验收已知0.549）"}
+  ],
+  "answer_cases": [
+    {"id":"A1","question":"What certifications do you have for the US market?","clearance":"public",
+     "must_contain":["CARB P2","TSCA"],"must_not_leak_internal":true,
+     "note":"认证答案：含关键参数、不漏内部"},
+    {"id":"A2","question":"你们的折扣政策是什么？","clearance":"public",
+     "must_not_leak_internal":true,"note":"对外不漏底价/折扣阶梯"},
+    {"id":"A3","question":"What is your MOQ?","clearance":"public",
+     "must_contain":["MOQ","40HQ"],"note":"MOQ答案（待办坑：组合问题稀释，先测现状）"},
+    {"id":"A4","question":"你们的交期要多久？","clearance":"public",
+     "must_contain":["30","45"],"note":"交期答案"}
+  ],
+  "language_cases": [
+    {"id":"L1","question":"你们的起订量是多少？","clearance":"public","expect_lang":"en",
+     "note":"坑4回归：对外入口强制英文"},
+    {"id":"L2","question":"我们的折扣阶梯是怎么样的？","clearance":"internal","expect_lang":"zh",
+     "note":"坑4回归：对内入口强制中文"}
+  ],
+  "intent_cases": [
+    {"text":"What's your MOQ for a trial order?","expected_intent":"quote"},
+    {"text":"Do you have CARB P2 certification?","expected_intent":"info"},
+    {"text":"Quote for 200 apartments full-house custom.","expected_intent":"quote"},
+    {"text":"These look great!😍","expected_intent":"none"},
+    {"text":"Buy 50k followers now cheap!","expected_intent":"spam"},
+    {"text":"Price for 50 sliding-door wardrobes to Australia.","expected_intent":"quote"}
+  ],
+  "agent_cases": [
+    {"id":"S1","lead":{"id":"L001","contact":"@builder_tx","intent":"quote","summary":"asks MOQ for a trial order"},"expected_must_contain":["MOQ","40HQ"],"expected_not_confirming":true,"note":"项目2 MOQ组合稀释坑：走销售Agent draft_reply 应直接答出MOQ数字，而非 confirming with colleagues"}
+  ]
+}
