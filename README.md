@@ -37,7 +37,7 @@
 | **P1-RAG** 企业级知识库 | 8000 | 多语言向量化、结构感知切块、**检索前权限过滤**、跨语言查询、DeepSeek 生成 | 17 篇文档建索引；recall@3 = 1.0；中文提问命中英文文档；内部资料泄露率 0 |
 | **P2-Agents** 获客矩阵 | 8001 | 手写三 Agent 编排、**黑板模式**共享状态、意图路由检索、异步任务 + 进度轮询 | 3 平台营销帖 + 11 条线索识别 + 11 封英文话术，端到端 60–90 秒 |
 | **P3-Eval** 质量评测 | — | 8 项量化指标、正向+反向用例、baseline 回归检测、成本与延迟监控 | 17 个用例全绿，0 回归 |
-| **P4-Collect** 采集与 CRM | — | SQLite 唯一索引去重、策略模式可插拔数据源、定时任务、**4 个 MCP 工具** | 14 条线索去重入库，幂等采集 |
+| **P4-Collect** 采集与 CRM | 8002（社媒） | SQLite 唯一索引去重、可插拔数据源、定时任务、4 个 MCP 工具；**社媒私信接入**：六平台渠道适配层 + webhook 服务 + 人工审核台 | 14 条线索去重入库；私信链路 32 项端到端测试全绿 |
 | **P5-Platform** 平台部署 | 8500 | FastAPI + 原生单页应用、跨服务 HTTP 编排、Docker 容器化 | Docker Desktop + WSL2 实跑通过，支持 CSV 导出 |
 
 ---
@@ -95,6 +95,25 @@ cd P4-Collect
 python scheduler.py      # 定时采集，线索自动去重入库
 python mcp_server.py     # 以 MCP 工具形式对外提供能力
 ```
+
+### 6. 跑社媒私信接入（P4 新增，零第三方依赖）
+
+把企业账号在 Instagram / Facebook / WhatsApp / TikTok / LinkedIn / YouTube
+收到的私信与评论统一接住 → 意图分类 → 转线索 → AI 起草 → 人工放行 → 统计。
+
+```bash
+cd P4-Collect
+python social.py           # 灌入演示数据（5 个平台各一条咨询）
+python webhook_server.py   # 启动服务 → 打开 http://localhost:8002 审核台
+python test_social.py      # 端到端冒烟测试（32 项）
+```
+
+各平台 webhook 地址：`/webhook/<平台名>`，需 HTTPS 公网地址（本地用 ngrok/cpolar 映射）。
+真实发送需在 `.env` 配置对应平台 token；**未配置时明确报错，绝不假装发送成功**。
+
+各平台 API 现状：Instagram / Facebook / WhatsApp 可直连；TikTok 需官方商务申请；
+LinkedIn 需 Partner 权限；**YouTube 无私信功能，只能抓公开评论**。
+拿不到权限的平台走 `channels/aggregator.py` 聚合通道兜底。
 
 ### 一键 Docker（仅 P5）
 
