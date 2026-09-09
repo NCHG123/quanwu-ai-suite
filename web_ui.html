@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>社媒私信审核台</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin:0; padding:24px; background:#F7F7F5; color:#2C2C2A;
+         font:14px/1.6 -apple-system,"Segoe UI","Microsoft YaHei",sans-serif; }
+  h1 { font-size:18px; font-weight:500; margin:0 0 4px; }
+  .sub { color:#5F5E5A; font-size:13px; margin-bottom:20px; }
+  .cards { display:flex; gap:12px; margin-bottom:20px; flex-wrap:wrap; }
+  .card { background:#fff; border:1px solid #E5E3DC; border-radius:10px;
+          padding:14px 18px; min-width:110px; }
+  .card .n { font-size:22px; font-weight:500; }
+  .card .l { font-size:12px; color:#5F5E5A; }
+  .bar { display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; align-items:center; }
+  button { font:inherit; font-size:13px; padding:6px 14px; border-radius:8px;
+           border:1px solid #D3D1C7; background:#fff; cursor:pointer; color:#2C2C2A; }
+  button:hover { background:#F1EFE8; }
+  button.on { background:#0F6E56; border-color:#0F6E56; color:#fff; }
+  .msg { background:#fff; border:1px solid #E5E3DC; border-radius:12px;
+         padding:16px 18px; margin-bottom:12px; }
+  .head { display:flex; align-items:center; gap:10px; margin-bottom:10px; flex-wrap:wrap; }
+  .tag { font-size:12px; padding:2px 9px; border-radius:6px; background:#E6F1FB;
+         color:#185FA5; }
+  .tag.i { background:#FAEEDA; color:#854F0B; }
+  .who { font-weight:500; }
+  .time { color:#888780; font-size:12px; margin-left:auto; }
+  .say { background:#F7F7F5; border-radius:8px; padding:10px 12px;
+         margin-bottom:10px; color:#444441; }
+  .say b { font-weight:500; color:#5F5E5A; font-size:12px; display:block; margin-bottom:4px; }
+  textarea { width:100%; min-height:110px; font:13px/1.6 inherit; padding:10px 12px;
+             border:1px solid #D3D1C7; border-radius:8px; resize:vertical; color:#2C2C2A; }
+  textarea:focus { outline:none; border-color:#0F6E56; }
+  .acts { display:flex; gap:8px; margin-top:10px; }
+  .go { background:#0F6E56; border-color:#0F6E56; color:#fff; }
+  .go:hover { background:#085041; }
+  .hint { color:#888780; font-size:12px; margin-left:auto; align-self:center; }
+  .empty { background:#fff; border:1px dashed #D3D1C7; border-radius:12px;
+           padding:36px; text-align:center; color:#888780; }
+</style>
+</head>
+<body>
+  <h1>社媒私信审核台</h1>
+  <div class="sub">AI 起草 → 人工确认 → 官方 API 发出。未确认的消息不会发送给任何客户。</div>
+
+  <div class="cards" id="cards"></div>
+
+  <div class="bar">
+    <button class="on" data-f="pending_review">待确认</button>
+    <button data-f="sent">已发送</button>
+    <button data-f="ignored">已忽略</button>
+    <button data-f="send_failed">发送失败</button>
+    <button data-f="">全部</button>
+    <button id="refresh" style="margin-left:auto">刷新</button>
+  </div>
+
+  <div id="list"></div>
+
+<script>
+var status = 'pending_review';
+
+function esc(s) {
+  return String(s === null || s === undefined ? '' : s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function loadStats() {
+  fetch('/api/stats').then(function (r) { return r.json(); }).then(function (s) {
+    var bs = s.by_status || {};
+    var items = [
+      [s.total, '私信总数'],
+      [bs.pending_review || 0, '待确认'],
+      [bs.sent || 0, '已发送'],
+      [s.reply_rate + '%', '回复率']
+    ];
+    document.getElementById('cards').innerHTML = items.map(function (it) {
+      return '<div class="card"><div class="n">' + esc(it[0]) + '</div><div class="l">' + esc(it[1]) + '</div></div>';
+    }).join('');
+  });
+}
+
+function load() {
+  var url = '/api/messages' + (status ? '?status=' + status : '');
+  fetch(url).then(function (r) { return r.json(); }).then(function (rows) {
+    var box = document.getElementById('list');
+    if (!rows.length) {
+      box.innerHTML = '<div class="empty">当前没有消息。运行 <b>python social.py</b> 可灌入演示数据。</div>';
+      return;
+    }
+    box.innerHTML = rows.map(function (m) {
+      var t = (m.received_at || '').slice(0, 16).replace('T', ' ');
+      return '<div class="msg" data-id="' + esc(m.id) + '">' +
+        '<div class="head">' +
+          '<span class="tag">' + esc(m.channel) + '</span>' +
+          '<span class="tag i">' + esc(m.intent) + '</span>' +
+          '<span class="who">' + esc(m.handle || m.external_user_id) + '</span>' +
+          '<span class="time">' + esc(t) + '</span>' +
+        '</div>' +
+        '<div class="say"><b>客户说</b>' + esc(m.text) + '</div>' +
+        '<textarea id="d-' + esc(m.id) + '">' + esc(m.reply_draft) + '</textarea>' +
+        '<div class="acts">' +
+          '<button class="go" onclick="go(\'' + esc(m.id) + '\')">确认并发送</button>' +
+          '<button onclick="skip(\'' + esc(m.id) + '\')">忽略</button>' +
+          '<span class="hint">草稿来源：' + esc(m.draft_source) + ' · 可编辑后再发</span>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  });
+}
+
+function go(id) {
+  var text = document.getElementById('d-' + id).value;
+  fetch('/api/messages/' + id + '/approve', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ text: text })
+  }).then(function (r) { return r.json(); }).then(function (res) {
+    if (res.ok) { load(); loadStats(); }
+    else { alert('发送失败：' + (res.error || '未知错误') + '\n\n无平台 token 时会这样，属正常——配置后可真实发出。'); }
+  });
+}
+
+function skip(id) {
+  fetch('/api/messages/' + id + '/reject', { method: 'POST' }).then(function () {
+    load(); loadStats();
+  });
+}
+
+Array.prototype.forEach.call(document.querySelectorAll('[data-f]'), function (b) {
+  b.onclick = function () {
+    Array.prototype.forEach.call(document.querySelectorAll('[data-f]'), function (x) { x.className = ''; });
+    b.className = 'on';
+    status = b.getAttribute('data-f');
+    load();
+  };
+});
+document.getElementById('refresh').onclick = function () { load(); loadStats(); };
+
+load();
+loadStats();
+setInterval(function () { load(); loadStats(); }, 15000);
+</script>
+</body>
+</html>
